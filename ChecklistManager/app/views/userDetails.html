@@ -1,0 +1,48 @@
+﻿<form name="addUserForm" data-ng-submit="save()" class="form-horizontal" role="form">
+
+    <fieldset>
+        <legend>User</legend>
+
+        <div class="form-group">
+            <label class="col-lg-2 control-label" for="username">Username</label>
+            <div class="col-lg-4">
+                <input type="email" id="username" class="form-control" data-ng-model="User.Username" data-ng-disabled="isEdit" class="input" required placeholder="Username" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-2" for="firstname">First Name</label>
+            <div class="col-lg-4">
+                <input type="text" id="firstname" class="form-control" data-ng-model="User.FirstName" required placeholder="First Name" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-2" for="lastname">Last Name</label>
+            <div class="col-lg-4">
+                <input type="text" id="lastname" class="form-control" data-ng-model="User.LastName" required placeholder="Last Name" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-2">Manager</label>
+            <div class="col-lg-4">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <span id="managerText">Please select...</span><span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a data-ng-click="select('None', null)">None</a></li>
+                        <li class="divider"></li>
+                        <li data-ng-repeat="manager in managers">
+                            <a data-ng-click="select(manager.Name, manager.Username)">{{manager.Name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-4">
+                <button type="submit" class="btn btn-default">Save changes</button>
+                <a href="#/users/" class="btn">Cancel</a>
+            </div>
+        </div>
+    </fieldset>
+</form>

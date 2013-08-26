@@ -1,0 +1,36 @@
+﻿<div class="row">
+    <div class="col-md-2 col-offset-10 pull-right">
+        <input type="text" data-ng-model="Users.filter" placeholder="search..." />
+    </div>
+</div>
+
+<a href="#/users/new" class="btn"><i class="icon-plus-sign"></i></a>
+
+<div class="">
+    <table class="table table-striped table-condensed table-hover">
+        <thead>
+            <tr>
+                <th data-sorted="Username">Username</th>
+                <th data-sorted="OrganisationName">Organisation</th>
+                <th class="optionColumn"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat="item in items | filter: User.filter"
+                data-ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}"
+                id="item_{{item.Username}}">
+                <td><a href="#/users/edit/{{item.Username}}">{{item.Username}}</a></td>
+                <td>{{item.OrganisationName}}</td>
+                <td>
+                    <a href="#/users/edit/{{item.Username}}"><i class="icon-edit"></i></a>
+                    <a href="#" data-ng-click="delete('{{item.Username}}')"><i class="icon-remove"></i></a>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
