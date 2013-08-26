@@ -40,7 +40,7 @@ namespace ChecklistManager
             }
 
             // Register your types, for instance:
-            container.Register<IChecklistRepository, ChecklistMemoryRepository>();
+            container.Register<IChecklistRepository, ChecklistDbRepository>();
 
             // Verify the container configuration
             container.Verify();

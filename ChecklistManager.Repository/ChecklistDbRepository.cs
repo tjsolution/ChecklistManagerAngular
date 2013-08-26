@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
+using System.Data.Objects;
 using System.Linq;
 using System.Web;
 
@@ -14,6 +16,9 @@ namespace ChecklistManager.Repository
         private ChecklistContext db = new ChecklistContext();
 
         public IDbSet<ChecklistTemplate> ChecklistTemplates { get { return db.ChecklistTemplates; } }
+        public IDbSet<CheckItemTemplate> CheckItemTemplates { get { return db.CheckItemTemplates; } }
+        public IDbSet<User> Users { get { return db.Users; } }
+        public IDbSet<Organisation> Organisations { get { return db.Organisations; } }
 
         public void SetModified(object item)
         {
@@ -22,7 +27,43 @@ namespace ChecklistManager.Repository
 
         public void SaveChanges()
         {
-            db.SaveChanges();
+            SaveDbChanges();
+        }
+
+        private bool SaveDbChanges()
+        {
+            try
+            {
+                int count = this.db.SaveChanges();
+                if (count > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (DbEntityValidationException databaseEx)
+            {
+                var validationErrorString = RepositoryHelper.GetValidationErrorMessageForEntity(databaseEx);
+                throw RepositoryException.Create(validationErrorString.ToString());
+            }
+            catch (DbUpdateConcurrencyException ocex)
+            {
+                var objContext = ((IObjectContextAdapter)this.db).ObjectContext;
+                foreach (var failedEntry in ocex.Entries)
+                {
+                    objContext.Refresh(RefreshMode.ClientWins, failedEntry.Entity);
+                }
+                return objContext.SaveChanges() > 0;
+            }
+            catch (DbUpdateException upEx)
+            {
+                var exception = upEx.GetBaseException();
+                throw RepositoryException.Create(exception.Message, upEx);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public void Dispose()
@@ -38,8 +79,8 @@ namespace ChecklistManager.Repository
         {
             var list = ((IObjectContextAdapter)db).ObjectContext.CreateObjectSet<ChecklistTemplate>();
 
-            IQueryable<ChecklistTemplate> items = string.IsNullOrEmpty(sort) ? list.OrderBy(o => o.ChecklistTemplateId)
-                : list.OrderBy(String.Format("it.{0} {1}", sort, desc ? "DESC" : "ASC"));
+            IQueryable<ChecklistTemplate> items = string.IsNullOrEmpty(sort) ? list.OrderBy(o => o.Id)
+                : list.OrderBy(string.Format("it.{0} {1}", sort, desc ? "DESC" : "ASC"));
 
             if (!string.IsNullOrEmpty(q) && q != "undefined")
             {

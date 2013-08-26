@@ -13,13 +13,19 @@ namespace ChecklistManager.Repository
     public class ChecklistMemoryRepository : IChecklistRepository
     {
         private IDbSet<ChecklistTemplate> checklistTemplates = new FakeChecklistSet();
+        private IDbSet<CheckItemTemplate> checkItemTemplates = new FakeCheckItemTemplateSet();
+        private IDbSet<User> users = new FakeUserSet();
+        private IDbSet<Organisation> organisations = new FakeOrganisationSet();
 
         public IDbSet<ChecklistTemplate> ChecklistTemplates { get { return this.checklistTemplates; } }
+        public IDbSet<CheckItemTemplate> CheckItemTemplates { get { return this.checkItemTemplates; } }
+        public IDbSet<User> Users { get { return this.users; } }
+        public IDbSet<Organisation> Organisations { get { return this.organisations; } }
 
         public ChecklistMemoryRepository()
         {
-            var list1 = new ChecklistTemplate { ChecklistTemplateId = 1, Title = "First List", UserId = "Me", ChecklistItems = GetListItems("FirstList") };
-            var list2 = new ChecklistTemplate { ChecklistTemplateId = 2, Title = "Second List", UserId = "Myself", ChecklistItems = GetListItems("SecondList") };
+            var list1 = new ChecklistTemplate { Id = 1, Title = "First List", ManagerUsername = "Me", Items = GetListItems("FirstList") };
+            var list2 = new ChecklistTemplate { Id = 2, Title = "Second List", ManagerUsername = "Myself", Items = GetListItems("SecondList") };
 
             this.checklistTemplates.Add(list1);
             this.checklistTemplates.Add(list2);
@@ -51,7 +57,7 @@ namespace ChecklistManager.Repository
 
             if (!string.IsNullOrEmpty(query) && query != "undefined")
             {
-                items = items.Where(t => t.Title.Contains(query) || t.UserId.Contains(query));
+                items = items.Where(t => t.Title.Contains(query) || t.Manager.Name.Contains(query));
             }
 
             if (offset > 0)
@@ -71,7 +77,7 @@ namespace ChecklistManager.Repository
         {
             if (string.IsNullOrEmpty(sort))
             {
-                return list.OrderBy(o => o.ChecklistTemplateId);
+                return list.OrderBy(o => o.Id);
             }
 
             if (desc)

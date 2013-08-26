@@ -1,10 +1,18 @@
-﻿using System.Data.Entity;
+﻿using ChecklistManager.Model;
+using ChecklistManager.Repository.FluentMapping;
+using ChecklistManager.Repository.Migrations;
+using System.Data.Entity;
 using TestLibrary;
 
 namespace ChecklistManager.Repository
 {
     public class ChecklistContext : DbContext
     {
+        static ChecklistContext()
+        {
+            Database.SetInitializer(new Configuration());
+        }   
+
         // You can add custom code to this file. Changes will not be overwritten.
         // 
         // If you want Entity Framework to drop and regenerate your database
@@ -16,8 +24,23 @@ namespace ChecklistManager.Repository
 
         public ChecklistContext() : base("name=ChecklistContext")
         {
+            this.Configuration.LazyLoadingEnabled = false;
+            this.Configuration.ProxyCreationEnabled = false;
         }
 
-        public FakeChecklistSet ChecklistTemplates { get; set; }
+        public IDbSet<ChecklistTemplate> ChecklistTemplates { get; set; }
+        public IDbSet<CheckItemTemplate> CheckItemTemplates { get; set; }
+        public IDbSet<User> Users { get; set; }
+        public IDbSet<Organisation> Organisations { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Configurations.Add(new ChecklistTemplateMapping());
+            modelBuilder.Configurations.Add(new CheckItemTemplateMapping());
+            modelBuilder.Configurations.Add(new UserMapping());
+            modelBuilder.Configurations.Add(new OrganisationMapping());
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

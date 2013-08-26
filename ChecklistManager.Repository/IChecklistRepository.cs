@@ -11,6 +11,10 @@ namespace ChecklistManager.Repository
     public interface IChecklistRepository : IDisposable
     {
         IDbSet<ChecklistTemplate> ChecklistTemplates { get; }
+        IDbSet<CheckItemTemplate> CheckItemTemplates { get; }
+        IDbSet<User> Users { get; }
+        IDbSet<Organisation> Organisations { get; }
+
         void SetModified(object item);
         void SaveChanges();
 

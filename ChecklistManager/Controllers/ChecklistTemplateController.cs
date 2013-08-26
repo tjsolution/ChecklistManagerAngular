@@ -22,23 +22,18 @@ namespace ChecklistManager.Controllers
             this.repository = repository;
         }
 
-        // GET api/ChecklistTemplate
-        //public IEnumerable<ChecklistTemplate> GetChecklistTemplates()
-        //{
-        //    return this.repository.ChecklistTemplates.AsEnumerable();
-        //}
-
         public IEnumerable<ChecklistTemplate> GetFilteredChecklistTemplates(string q = null, string sort = null, bool desc = false,
                                                         int? limit = null, int offset = 0)
         {
             
-            return repository.GetFilteredChecklistTemplates(q, sort, desc, limit, offset);
+            var a = repository.GetFilteredChecklistTemplates(q, sort, desc, limit, offset);
+            return a;
         }
 
         // GET api/ChecklistTemplate/5
         public ChecklistTemplate GetChecklistTemplate(int id)
         {
-            ChecklistTemplate checklisttemplate = this.repository.ChecklistTemplates.Find(id);
+            var checklisttemplate = this.repository.ChecklistTemplates.Find(id);
             if (checklisttemplate == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
@@ -55,7 +50,7 @@ namespace ChecklistManager.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
 
-            if (id != checklistTemplate.ChecklistTemplateId)
+            if (id != checklistTemplate.Id)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
@@ -77,13 +72,13 @@ namespace ChecklistManager.Controllers
         // POST api/ChecklistTemplate
         public HttpResponseMessage PostChecklistTemplate(ChecklistTemplate checklisttemplate)
         {
-            if (ModelState.IsValid)
+           if (ModelState.IsValid)
             {
                 repository.ChecklistTemplates.Add(checklisttemplate);
                 repository.SaveChanges();
 
-                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, checklisttemplate);
-                response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = checklisttemplate.ChecklistTemplateId }));
+                var response = Request.CreateResponse(HttpStatusCode.Created, checklisttemplate);
+                response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = checklisttemplate.Id }));
                 return response;
             }
             else
@@ -95,7 +90,7 @@ namespace ChecklistManager.Controllers
         // DELETE api/ChecklistTemplate/5
         public HttpResponseMessage DeleteChecklistTemplate(int id)
         {
-            ChecklistTemplate checklisttemplate = repository.ChecklistTemplates.Find(id);
+            var checklisttemplate = repository.ChecklistTemplates.Find(id);
             if (checklisttemplate == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);

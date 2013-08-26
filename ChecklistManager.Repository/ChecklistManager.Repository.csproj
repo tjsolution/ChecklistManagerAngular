@@ -44,11 +44,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChecklistTemplateHelper.cs" />
+    <Compile Include="FluentMapping\BaseMapping.cs" />
     <Compile Include="ChecklistContext.cs" />
     <Compile Include="ChecklistDbRepository.cs" />
     <Compile Include="ChecklistMemoryRepository.cs" />
+    <Compile Include="FluentMapping\CheckItemTemplateMapping.cs" />
+    <Compile Include="FluentMapping\OrganisationMapping.cs" />
+    <Compile Include="FluentMapping\UserMapping.cs" />
     <Compile Include="IChecklistRepository.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="FluentMapping\ChecklistTemplateMapping.cs" />
+    <Compile Include="RepositoryException.cs" />
+    <Compile Include="RepositoryHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ChecklistManager.Contract\ChecklistManager.Contract.csproj">

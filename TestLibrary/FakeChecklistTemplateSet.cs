@@ -12,7 +12,7 @@ namespace TestLibrary
     {
         public override ChecklistTemplate Find(params object[] keyValues)
         {
-            return this.SingleOrDefault(d => d.ChecklistTemplateId == (int)keyValues.Single());
+            return this.SingleOrDefault(d => d.Id == (int)keyValues.Single());
         }
     }
 }
