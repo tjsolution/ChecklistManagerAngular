@@ -1,0 +1,38 @@
+﻿<div class="row">
+    <div class="col-md-3 pull-right">
+        <div class="input-group">
+            <input type="text" data-ng-model="list.query" class="form-control" placeholder="search..." data-cng-blur="search()" />
+            <span class="input-group-btn">
+                <button data-ng-click="search()" class="btn btn-default"><i class="icon-search"></i></button>
+            </span>
+        </div>
+    </div>
+</div>
+<table class="table table-striped table-condensed table-hover">
+    <thead>
+        <tr>
+            <th data-sorted="Title">Title</th>
+            <th data-sorted="RecordModifiedBy">Modified By</th>
+            <th class="optionColumn"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr data-ng-repeat="checklist in checklists" data-ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}" id="item_{{checklist.Id}}">
+            <td>
+                <a href="#/checklists/edit/{{checklist.Id}}">{{checklist.Title}}</a>
+                <span class="badge pull-right">{{checklist.completedItems}}</span>
+            </td>
+            <td><span>{{checklist.RecordModifiedBy}}</span></td>
+            <td>
+                <a href="#/checklist/edit/{{checklist.Id}}"><i class="icon-edit"></i></a>
+                <a href="#" data-ng-click="remove({{checklist.Id}})"><i class="icon-remove"></i></a>
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td></td>
+        </tr>
+    </tfoot>
+</table>
+
