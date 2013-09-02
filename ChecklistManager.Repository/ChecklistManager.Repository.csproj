@@ -50,6 +50,8 @@
     <Compile Include="ChecklistDbRepository.cs" />
     <Compile Include="ChecklistMemoryRepository.cs" />
     <Compile Include="FluentMapping\CheckItemTemplateMapping.cs" />
+    <Compile Include="FluentMapping\CheckItemMapping.cs" />
+    <Compile Include="FluentMapping\ChecklistMapping.cs" />
     <Compile Include="FluentMapping\OrganisationMapping.cs" />
     <Compile Include="FluentMapping\UserMapping.cs" />
     <Compile Include="IChecklistRepository.cs" />

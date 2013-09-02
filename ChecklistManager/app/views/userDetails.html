@@ -24,11 +24,11 @@
         <div class="form-group">
             <label class="control-label col-lg-2">Manager</label>
             <div class="col-lg-4">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <div class="btn-group dropdown">
+                    <button id="managerName" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                         <span id="managerText">Please select...</span><span class="caret"></span>
                     </button>
-                    <ul class="dropdown-menu" role="menu">
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="managerName">
                         <li><a data-ng-click="select('None', null)">None</a></li>
                         <li class="divider"></li>
                         <li data-ng-repeat="manager in managers">

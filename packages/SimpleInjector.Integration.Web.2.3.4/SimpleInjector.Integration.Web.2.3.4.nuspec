@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>SimpleInjector.Integration.Web</id>
-    <version>2.3.0</version>
+    <version>2.3.4</version>
     <title>Simple Injector ASP.NET Integration</title>
     <authors>S. van Deursen</authors>
     <owners>S. van Deursen</owners>
@@ -17,7 +17,7 @@
     <tags>simpleinjector architecture dependency-injection DI easy easy-to-use Inversion-of-Control IOC Servicelocator per-web-request web integration</tags>
     <dependencies>
       <dependency id="WebActivator" version="1.4.4" />
-      <dependency id="SimpleInjector" version="2.3.0" />
+      <dependency id="SimpleInjector" version="2.3.4" />
     </dependencies>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="Microsoft.Web.Infrastructure" targetFramework=".NETFramework4.0" />

@@ -1,11 +1,11 @@
 ﻿var ChecklistTemplatesCtrl = function ($scope, $location, checklistTemplates, userService) {
-    $scope.template = {};
+    $scope.templateList = {};
 
     $scope.reset = function () {
         $scope.offset = 0;
-        $scope.items = [];
-        if ($scope.template) {
-            $scope.template.query = null;
+        $scope.templates = [];
+        if ($scope.templateList) {
+            $scope.templateList.query = null;
         }
         $scope.search();
     };
@@ -13,16 +13,16 @@
     $scope.search = function () {
         checklistTemplates.query(
             {
-                q: $scope.template.query,
+                q: $scope.templateList.query,
                 sort: $scope.sort_order,
                 desc: $scope.sort_desc,
                 limit: $scope.limit,
                 offset: $scope.offset
             },
-            function (items) {
-                var cnt = items.length;
+            function (templates) {
+                var cnt = templates.length;
                 $scope.no_more = cnt < $scope.limit;
-                $scope.items = items;
+                $scope.templates = templates;
             }
         );
     };
@@ -42,18 +42,18 @@
         return !$scope.no_more;
     };
 
-    $scope.newTemplate = function () {
+    $scope.createTemplate = function () {
         var checklist = {
-            Title: $scope.template.newTemplateName,
+            Title: $scope.templateList.name,
             ManagerUsername: userService.username
         };
-        checklistTemplates.save(checklist, function (savedItem) {
-            $scope.items.splice(0, 0, savedItem);
+        checklistTemplates.save(checklist, function (savedTemplate) {
+            $scope.templates.splice(0, 0, savedTemplate);
         });
     };
 
-    $scope.delete = function (itemId) {
-        checklistTemplates.delete({ id: itemId }, function () {
+    $scope.remove = function (itemId) {
+        checklistTemplates.remove({ id: itemId }, function () {
             $("#item_" + itemId).fadeOut();
         });
     };
@@ -66,14 +66,15 @@
     $scope.reset();
 };
 
-function EditChecklistCtrl($scope, $routeParams, $location, checklistTemplates, checklistTemplateItems, checkItemTemplates, userResource, userService) {
+function EditChecklistCtrl($scope, $routeParams, $location,
+                            checklistTemplates, checkItemTemplates, userResource, userService) {
     $scope.template = checklistTemplates.get({ id: $routeParams.itemId }, function (item) {
         userResource.get({ username: item.ManagerUsername }, function (manager) {
             $scope.managerName = manager ? manager.Name : 'None';
         });
     });
     
-    $scope.templateItems = checklistTemplateItems.query({ templateId: $routeParams.itemId });
+    $scope.templateItems = checkItemTemplates.query({ templateId: $routeParams.itemId });
     $scope.managers = userResource.query({ organisation: userService.organisation });
 
     $scope.save = function () {
@@ -91,8 +92,8 @@ function EditChecklistCtrl($scope, $routeParams, $location, checklistTemplates, 
             $scope.templateItems.splice(0, 0, savedItem);
         });
     };
-    $scope.delete = function (itemId) {
-        checkItemTemplates.delete({ id: itemId }, function () {
+    $scope.remove = function (itemId) {
+        checkItemTemplates.remove({ id: itemId }, function () {
             $("#item_" + itemId).fadeOut();
         });
     };

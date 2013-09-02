@@ -8,9 +8,9 @@ using TestLibrary;
 
 namespace TestLibrary
 {
-    public class FakeChecklistTemplateSet : FakeDbSet<ChecklistTemplate>
+    public class FakeChecklistSet : FakeDbSet<Checklist>
     {
-        public override ChecklistTemplate Find(params object[] keyValues)
+        public override Checklist Find(params object[] keyValues)
         {
             return this.SingleOrDefault(d => d.Id == (int)keyValues.Single());
         }

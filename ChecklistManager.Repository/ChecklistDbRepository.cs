@@ -17,12 +17,23 @@ namespace ChecklistManager.Repository
 
         public IDbSet<ChecklistTemplate> ChecklistTemplates { get { return db.ChecklistTemplates; } }
         public IDbSet<CheckItemTemplate> CheckItemTemplates { get { return db.CheckItemTemplates; } }
+        public IDbSet<Checklist> Checklists { get { return db.Checklists; } }
+        public IDbSet<CheckItem> CheckItems { get { return db.CheckItems; } }
         public IDbSet<User> Users { get { return db.Users; } }
         public IDbSet<Organisation> Organisations { get { return db.Organisations; } }
 
         public void SetModified(object item)
         {
             db.Entry(item).State = EntityState.Modified;
+        }        
+        
+        public void SetModifiedList(object[] items)
+        {
+            if (items == null)
+            {
+                return;
+            }
+            Array.ForEach(items, item => db.Entry(item).State = EntityState.Modified);
         }
 
         public void SaveChanges()

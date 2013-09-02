@@ -12,13 +12,21 @@ namespace ChecklistManager.Repository
 {
     public class ChecklistMemoryRepository : IChecklistRepository
     {
-        private IDbSet<ChecklistTemplate> checklistTemplates = new FakeChecklistSet();
+        private IDbSet<ChecklistTemplate> checklistTemplates = new FakeChecklistTemplateSet();
         private IDbSet<CheckItemTemplate> checkItemTemplates = new FakeCheckItemTemplateSet();
+
+        private IDbSet<Checklist> checklists = new FakeChecklistSet();
+        private IDbSet<CheckItem> checkItems = new FakeCheckItemSet();
+
         private IDbSet<User> users = new FakeUserSet();
         private IDbSet<Organisation> organisations = new FakeOrganisationSet();
 
         public IDbSet<ChecklistTemplate> ChecklistTemplates { get { return this.checklistTemplates; } }
         public IDbSet<CheckItemTemplate> CheckItemTemplates { get { return this.checkItemTemplates; } }
+
+        public IDbSet<Checklist> Checklists { get { return this.checklists; } }
+        public IDbSet<CheckItem> CheckItems { get { return this.checkItems; } }
+
         public IDbSet<User> Users { get { return this.users; } }
         public IDbSet<Organisation> Organisations { get { return this.organisations; } }
 
@@ -38,6 +46,10 @@ namespace ChecklistManager.Repository
         }
 
         public void SetModified(object item)
+        {
+        }
+
+        public void SetModifiedList(object[] items)
         {
         }
 

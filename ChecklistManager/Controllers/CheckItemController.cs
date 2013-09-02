@@ -13,49 +13,48 @@ using ChecklistManager.Repository;
 
 namespace ChecklistManager.Controllers
 {
-    public class CheckItemTemplateController : ApiController
+    public class CheckItemController : ApiController
     {
         private IChecklistRepository repository;
 
-        public CheckItemTemplateController(IChecklistRepository repository)
+        public CheckItemController(IChecklistRepository repository)
         {
             this.repository = repository;
         }
 
-        // GET api/CheckItemTemplate?templateId
-        public IEnumerable<CheckItemTemplate> GetChecklistTemplateItems(int templateId)
+        public IEnumerable<CheckItem> GetChecklist(int checklistId)
         {
-            return this.repository.CheckItemTemplates
-                .Where(i => !i.IsObsolete)
-                .Where(i => i.ChecklistTemplateId == templateId);
+            return repository.CheckItems
+                .Where(i => i.ChecklistId == checklistId)
+                .Where(i => !i.IsObsolete);
         }
 
-        // GET api/CheckItemTemplate/5
-        public CheckItemTemplate GetCheckItemTemplate(int id)
+        // GET api/CheckItem/5
+        public CheckItem GetCheckItem(int id)
         {
-            var itemTemplate = this.repository.CheckItemTemplates.Find(id);
-            if (itemTemplate == null)
+            var item = this.repository.CheckItems.Find(id);
+            if (item == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
             }
 
-            return itemTemplate;
+            return item;
         }
 
-        // PUT api/CheckItemTemplate/5
-        public HttpResponseMessage PutCheckItemTemplate(int id, CheckItemTemplate itemTemplate)
+        // PUT api/CheckItem/5
+        public HttpResponseMessage PutCheckItem(int id, CheckItem item)
         {
             if (!ModelState.IsValid)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
 
-            if (id != itemTemplate.Id)
+            if (id != item.Id)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
 
-            this.repository.SetModified(itemTemplate);
+            this.repository.SetModified(item);
 
             try
             {
@@ -69,16 +68,16 @@ namespace ChecklistManager.Controllers
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        // POST api/CheckItemTemplate
-        public HttpResponseMessage PostCheckItemTemplate(CheckItemTemplate itemTemplate)
+        // POST api/CheckItem
+        public HttpResponseMessage PostCheckItem(CheckItem item)
         {
            if (ModelState.IsValid)
             {
-                repository.CheckItemTemplates.Add(itemTemplate);
+                repository.CheckItems.Add(item);
                 repository.SaveChanges();
 
-                var response = Request.CreateResponse(HttpStatusCode.Created, itemTemplate);
-                response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = itemTemplate.Id }));
+                var response = Request.CreateResponse(HttpStatusCode.Created, item);
+                response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = item.Id }));
                 return response;
             }
             else
@@ -87,16 +86,16 @@ namespace ChecklistManager.Controllers
             }
         }
 
-        // DELETE api/CheckItemTemplate/5
-        public HttpResponseMessage DeleteCheckItemTemplate(int id)
+        // DELETE api/CheckItem/5
+        public HttpResponseMessage DeleteCheckItem(int id)
         {
-            var itemTemplate = repository.CheckItemTemplates.Find(id);
-            if (itemTemplate == null)
+            var item = repository.CheckItems.Find(id);
+            if (item == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
-            repository.CheckItemTemplates.Remove(itemTemplate);
+            repository.CheckItems.Remove(item);
 
             try
             {
@@ -107,7 +106,7 @@ namespace ChecklistManager.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
             }
 
-            return Request.CreateResponse(HttpStatusCode.OK, itemTemplate);
+            return Request.CreateResponse(HttpStatusCode.OK, item);
         }
 
         protected override void Dispose(bool disposing)

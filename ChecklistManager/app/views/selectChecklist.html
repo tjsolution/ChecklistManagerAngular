@@ -1,0 +1,31 @@
+﻿<div class="row">
+    <div class="col-md-3 pull-right">
+        <div class="input-group">
+            <input type="text" data-ng-model="template.query" class="form-control" placeholder="search..." data-cng-blur="search()" />
+            <span class="input-group-btn">
+                <button data-ng-click="search()" class="btn btn-default"><i class="icon-search"></i></button>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-condensed table-hover">
+        <thead>
+            <tr>
+                <th data-sorted="Title">Title</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat="template in templates" id="list_{{template.Id}}">
+                <td><button class="btn btn-link" data-ng-click="completeChecklist({{template.Id}})">{{template.Title}}</button></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+

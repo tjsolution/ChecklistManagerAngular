@@ -27,27 +27,13 @@ namespace ChecklistManager
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            var container = new Container();
+            DependencyInjection.RegisterResolver(GlobalConfiguration.Configuration);
 
-            var services = GlobalConfiguration.Configuration.Services;
-            var controllerTypes = services.GetHttpControllerTypeResolver()
-                .GetControllerTypes(services.GetAssembliesResolver());
+            GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling =
+                Newtonsoft.Json.ReferenceLoopHandling.Serialize;
+            GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling
+     = Newtonsoft.Json.PreserveReferencesHandling.Objects;
 
-            // register Web API controllers (important! http://bit.ly/1aMbBW0)
-            foreach (var controllerType in controllerTypes)
-            {
-                container.Register(controllerType);
-            }
-
-            // Register your types, for instance:
-            container.Register<IChecklistRepository, ChecklistDbRepository>();
-
-            // Verify the container configuration
-            container.Verify();
-
-            // Register the dependency resolver.
-            GlobalConfiguration.Configuration.DependencyResolver =
-                new SimpleInjectorWebApiDependencyResolver(container);
         }
     }
 }

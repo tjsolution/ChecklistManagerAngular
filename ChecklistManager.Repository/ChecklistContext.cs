@@ -30,6 +30,10 @@ namespace ChecklistManager.Repository
 
         public IDbSet<ChecklistTemplate> ChecklistTemplates { get; set; }
         public IDbSet<CheckItemTemplate> CheckItemTemplates { get; set; }
+
+        public IDbSet<Checklist> Checklists { get; set; }
+        public IDbSet<CheckItem> CheckItems { get; set; }
+
         public IDbSet<User> Users { get; set; }
         public IDbSet<Organisation> Organisations { get; set; }
 
@@ -37,6 +41,10 @@ namespace ChecklistManager.Repository
         {
             modelBuilder.Configurations.Add(new ChecklistTemplateMapping());
             modelBuilder.Configurations.Add(new CheckItemTemplateMapping());
+
+            modelBuilder.Configurations.Add(new ChecklistMapping());
+            modelBuilder.Configurations.Add(new CheckItemMapping());
+
             modelBuilder.Configurations.Add(new UserMapping());
             modelBuilder.Configurations.Add(new OrganisationMapping());
 

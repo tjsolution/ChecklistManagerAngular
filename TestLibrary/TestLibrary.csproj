@@ -44,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FakeCheckItemSet.cs" />
+    <Compile Include="FakeChecklistSet.cs" />
     <Compile Include="FakeOrganisationSet.cs" />
     <Compile Include="FakeUserSet.cs" />
     <Compile Include="FakeCheckItemTemplateSet.cs" />

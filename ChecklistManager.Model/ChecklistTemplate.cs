@@ -17,5 +17,14 @@ namespace ChecklistManager.Model
         public string Description { get; set; }
 
         public virtual ICollection<CheckItemTemplate> Items { get; set; }
+
+        public Checklist CreateChecklist()
+        {
+            return new Checklist
+            {
+                ChecklistTemplateId = Id,
+                Title = Title
+            };
+        }
     }
 }

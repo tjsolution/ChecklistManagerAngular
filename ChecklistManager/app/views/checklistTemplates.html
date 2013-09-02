@@ -1,7 +1,7 @@
 ﻿<div class="row">
     <div class="col-md-3 pull-right">
         <div class="input-group">
-            <input type="text" data-ng-model="template.query" class="form-control" placeholder="search..." data-cng-blur="search()" />
+            <input type="text" data-ng-model="templateList.query" class="form-control" placeholder="search..." data-cng-blur="search()" />
             <span class="input-group-btn">
                 <button data-ng-click="search()" class="btn btn-default"><i class="icon-search"></i></button>
             </span>
@@ -10,11 +10,11 @@
 </div>
 <div class="row">
     <div class="col-md-3 pull-left">
-        <form name="newTemplateForm" data-ng-submit="newTemplate()" class="form-inline">
+        <form name="newTemplateForm" data-ng-submit="createTemplate()" class="form-inline">
             <div class="input-group">
-                <input type="text" data-ng-model="template.newTemplateName" class="form-control" required placeholder="Enter template name" />
+                <input type="text" data-ng-model="templateList.name" class="form-control" required placeholder="Enter template name" />
                 <span class="input-group-btn">
-                    <button type="submit" class="btn btn-default" data-ng-disabled="!template.newTemplateName">
+                    <button type="submit" class="btn btn-default" data-ng-disabled="!templateList.name">
                         <i class="icon-plus-sign"></i>
                     </button>
                 </span>
@@ -22,30 +22,27 @@
         </form>
     </div>
 </div>
-<div class="table-responsive">
-    <table class="table table-striped table-condensed table-hover">
-        <thead>
-            <tr>
-                <th data-sorted="Title">Title</th>
-                <th data-sorted="ManagerUsername">Manager</th>
-                <th class="optionColumn"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr data-ng-repeat="item in items" data-ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}" id="item_{{item.Id}}">
-                <td><a href="#/checklist-templates/edit/{{item.Id}}">{{item.Title}}</a></td>
-                <td>{{item.Manager.Name}}</td>
-                <td>
-                    <a href="#/checklist-templates/edit/{{item.Id}}"><i class="icon-edit"></i></a>
-                    <a href="#" data-ng-click="delete({{item.Id}})"><i class="icon-remove"></i></a>
-                </td>
-            </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td><a data-ng-click="offset = offset + limit; search()" data-ng-show="show_more()">Show more</a></td>
-            </tr>
-        </tfoot>
-    </table>
-</div>
-
+<table class="table table-striped table-condensed table-hover">
+    <thead>
+        <tr>
+            <th data-sorted="Title">Title</th>
+            <th data-sorted="ManagerUsername">Manager</th>
+            <th class="optionColumn"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr data-ng-repeat="template in templates" data-ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}" id="item_{{template.Id}}">
+            <td><a href="#/checklist-templates/edit/{{template.Id}}">{{template.Title}}</a></td>
+            <td>{{template.ManagerUsername}}</td>
+            <td>
+                <a href="#/checklist-templates/edit/{{template.Id}}"><i class="icon-edit"></i></a>
+                <a href="#" data-ng-click="remove({{template.Id}})"><i class="icon-remove"></i></a>
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td><a data-ng-click="offset = offset + limit; search()" data-ng-show="show_more()">Show more</a></td>
+        </tr>
+    </tfoot>
+</table>

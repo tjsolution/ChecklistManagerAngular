@@ -24,7 +24,7 @@ function CreateUserCtrl($scope, $routeParams, $location, userResource, userServi
     $scope.selectedManager = userService.username;
     $scope.select = function (text, value) {
         $scope.selectedManager = value;
-        $('#managerText').html(text);
+        angular.element('#managerText').html(text);
     };
 
     $scope.save = function () {
@@ -32,10 +32,10 @@ function CreateUserCtrl($scope, $routeParams, $location, userResource, userServi
             ManagerUsername: $scope.selectedManager,
             OrganisationName: userService.organisation
         };
-            userResource.save($scope.User, function () {
-                $location.path('/users');
-            });
-        };
+        userResource.save($scope.User, function () {
+            $location.path('/users');
+        });
+    };
 }
 
 function EditUserCtrl($scope, $routeParams, $location, userResource, userService) {
@@ -43,24 +43,24 @@ function EditUserCtrl($scope, $routeParams, $location, userResource, userService
     $scope.User = userResource.get({ username: $routeParams.username });
 
     userResource.query({ organisation: userService.organisation }, function (users) {
-        users.splice(0, 0, { Name: 'None', Username: null })
+        users.splice(0, 0, { Name: 'None', Username: null });
         $scope.managers = users;
     });
     if ($scope.User.Manager) {
-        $('#managerText').html($scope.User.Manager.Name);
+        angular.element('#managerText').html($scope.User.Manager.Name);
     }
     else {
-        $('#managerText').html('None');
+        angular.element('#managerText').html('None');
     }
 
     $scope.save = function () {
-        checklistTemplates.update({ username: $scope.username }, $scope.item, function () {
+        userResource.update({ username: $scope.username }, $scope.item, function () {
             $location.path('/users');
         });
     };
 
     $scope.select = function (text, value) {
         $scope.User.ManagerUsername = value;
-        $('#managerText').html(text);
+        angular.element('#managerText').html(text);
     };
 }
