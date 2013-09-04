@@ -17,7 +17,7 @@
             };
         }
     };
-};
+}
 
 function focusDirective($parse) {
     return function (scope, element, attr) {
@@ -28,7 +28,7 @@ function focusDirective($parse) {
             });
         });
     }
-};
+}
 
 function blurDirective($parse) {
     return function (scope, element, attr) {
@@ -39,4 +39,17 @@ function blurDirective($parse) {
             });
         });
     }
-};
+}
+
+function enterDirective() {
+    return function (scope, element, attrs) {
+        element.keypress(function (event) {
+            if (event.which === 13) {
+                scope.$apply(function () {
+                    scope.$eval(attrs.cngEnter);
+                });
+                event.preventDefault();
+            }
+        });
+    }
+}

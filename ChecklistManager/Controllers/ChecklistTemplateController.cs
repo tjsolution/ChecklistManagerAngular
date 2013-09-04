@@ -10,6 +10,8 @@ using System.Web;
 using System.Web.Http;
 using ChecklistManager.Model;
 using ChecklistManager.Repository;
+using System.Web.Http.OData.Query;
+using System.Web.Http.OData;
 
 namespace ChecklistManager.Controllers
 {
@@ -22,12 +24,18 @@ namespace ChecklistManager.Controllers
             this.repository = repository;
         }
 
-        public IEnumerable<ChecklistTemplate> GetFilteredChecklistTemplates(string q = null, string sort = null, bool desc = false,
-                                                        int? limit = null, int offset = 0)
+        // GET api/ChecklistTemplate?organisation={organisation}
+        public PageResult<ChecklistTemplate> GetTemplatesQuery(string organisation, ODataQueryOptions<ChecklistTemplate> queryOptions)
         {
-            
-            var a = repository.GetFilteredChecklistTemplates(q, sort, desc, limit, offset);
-            return a;
+            var query = repository.ChecklistTemplates
+                .Where(i => i.Manager.OrganisationName == organisation)
+                .Where(i => !i.IsObsolete)
+                .Include(i => i.Items);
+            IQueryable results = queryOptions.ApplyTo(query);
+
+            return new PageResult<ChecklistTemplate>(results as IEnumerable<ChecklistTemplate>,
+                Request.GetNextPageLink(),
+                Request.GetInlineCount());
         }
 
         // GET api/ChecklistTemplate/5

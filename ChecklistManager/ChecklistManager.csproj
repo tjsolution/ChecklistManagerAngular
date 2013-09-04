@@ -208,7 +208,7 @@
     <Content Include="app\views\checkltemTemplateDetails.html" />
     <Content Include="app\views\checklistDetails.html" />
     <Content Include="app\views\checklists.html" />
-    <Content Include="app\views\selectChecklist.html" />
+    <Content Include="app\views\selectTemplate.html" />
     <Content Include="app\views\userDetails.html" />
     <Content Include="app\views\start.html" />
     <Content Include="app\views\users.html" />

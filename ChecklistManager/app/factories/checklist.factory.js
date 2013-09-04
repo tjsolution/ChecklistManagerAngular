@@ -1,5 +1,8 @@
 ﻿function ChecklistTemplateFactory($resource) {
-    return $resource('/api/checklistTemplate/:id', { id: '@id' }, { update: { method: 'PUT' } });
+    return $resource('/api/checklistTemplate/:id', { id: '@id' }, {
+        update: { method: 'PUT' },
+        odata: { method: 'GET' }
+    });
 }
 function CheckItemTemplateFactory($resource) {
     return $resource('/api/checkItemTemplate/:id', { id: '@id' }, { update: { method: 'PUT' } });

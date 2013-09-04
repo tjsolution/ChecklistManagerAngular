@@ -1,6 +1,6 @@
 ﻿function UserListCtrl($scope, $location, userResource, userService) {
 
-    $scope.items = userResource.query({ organisation: userService.organisation });
+    $scope.users = userResource.query({ organisation: userService.organisation });
 
     $scope.sort_by = function (ord) {
         if ($scope.sort_order === ord) {

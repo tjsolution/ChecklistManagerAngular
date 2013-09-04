@@ -13,10 +13,10 @@ checklistApp.config(function ($routeProvider, $httpProvider) {
         .when('/users/new', { controller: CreateUserCtrl, templateUrl: 'views/userDetails.html' })
         .when('/users/edit/:username', { controller: EditUserCtrl, templateUrl: 'views/userDetails.html' })
         .when('/checklist-templates', { controller: ChecklistTemplatesCtrl, templateUrl: 'views/checklistTemplates.html' })
-        .when('/checklist-templates/edit/:itemId', { controller: EditChecklistCtrl, templateUrl: 'views/checklistTemplateDetails.html' })
+        .when('/checklist-templates/edit/:id', { controller: EditTemplateCtrl, templateUrl: 'views/checklistTemplateDetails.html' })
         .when('/checklist-templates/item/edit/:itemId', { controller: EditCheckItemCtrl, templateUrl: 'views/checkltemTemplateDetails.html' })
         .when('/checklists', { controller: ViewChecklistsCtrl, templateUrl: 'views/checklists.html' })
-        .when('/checklists/complete', { controller: CompleteChecklistCtrl, templateUrl: 'views/selectChecklist.html' })
+        .when('/checklist-templates/select', { controller: SelectTemplateCtrl, templateUrl: 'views/selectTemplate.html' })
         .when('/checklists/new/:templateId', { controller: CreateChecklistCtrl, templateUrl: 'views/checklistDetails.html' })
         .when('/checklists/edit/:id', { controller: ViewChecklistCtrl, templateUrl: 'views/checklistDetails.html' })
         .otherwise({ redirectTo: '/' });
@@ -32,3 +32,4 @@ checklistApp.factory('userService', UserService);
 checklistApp.directive('sorted', sortedDirective);
 checklistApp.directive('cngFocus', ['$parse', focusDirective]);
 checklistApp.directive('cngBlur', ['$parse', blurDirective]);
+checklistApp.directive('cngEnter', enterDirective);

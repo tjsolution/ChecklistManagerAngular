@@ -1,45 +1,15 @@
 ﻿var ChecklistTemplatesCtrl = function ($scope, $location, checklistTemplates, userService) {
+    var filterExt = new FilterCtrl($scope);
     $scope.templateList = {};
+    $scope.filters.args.organisation = userService.organisation;
 
-    $scope.reset = function () {
-        $scope.offset = 0;
-        $scope.templates = [];
-        if ($scope.templateList) {
-            $scope.templateList.query = null;
-        }
-        $scope.search();
-    };
-
-    $scope.search = function () {
-        checklistTemplates.query(
-            {
-                q: $scope.templateList.query,
-                sort: $scope.sort_order,
-                desc: $scope.sort_desc,
-                limit: $scope.limit,
-                offset: $scope.offset
-            },
-            function (templates) {
-                var cnt = templates.length;
-                $scope.no_more = cnt < $scope.limit;
-                $scope.templates = templates;
+    $scope.getData = function () {
+        checklistTemplates.odata(filterExt.getODataFilter($scope.filters),
+            function (pageResult) {
+                filterExt.updateTotalPages(pageResult.Count);
+                $scope.templates = pageResult.Items;
             }
         );
-    };
-
-    $scope.sort_by = function (ord) {
-        if ($scope.sort_order === ord) {
-            $scope.sort_desc = !$scope.sort_desc;
-        }
-        else {
-            $scope.sort_desc = false;
-        }
-        $scope.sort_order = ord;
-        $scope.reset();
-    };
-
-    $scope.show_more = function () {
-        return !$scope.no_more;
     };
 
     $scope.createTemplate = function () {
@@ -58,36 +28,32 @@
         });
     };
 
-    $scope.limit = 20;
-
-    $scope.sort_order = 'ManagerUsername';
-    $scope.sort_desc = true;
-
-    $scope.reset();
+    $scope.getData();
 };
 
-function EditChecklistCtrl($scope, $routeParams, $location,
+function EditTemplateCtrl($scope, $routeParams, $location,
                             checklistTemplates, checkItemTemplates, userResource, userService) {
-    $scope.template = checklistTemplates.get({ id: $routeParams.itemId }, function (item) {
+
+    $scope.template = checklistTemplates.get({ id: $routeParams.id }, function (item) {
         userResource.get({ username: item.ManagerUsername }, function (manager) {
             $scope.managerName = manager ? manager.Name : 'None';
         });
     });
     
-    $scope.templateItems = checkItemTemplates.query({ templateId: $routeParams.itemId });
+    $scope.templateItems = checkItemTemplates.query({ templateId: $routeParams.id });
     $scope.managers = userResource.query({ organisation: userService.organisation });
 
     $scope.save = function () {
-        checklistTemplates.update({ id: $scope.template.Id }, $scope.item, function () {
+        checklistTemplates.update({ id: $scope.template.Id }, $scope.template, function () {
             $location.path('/checklist-templates');
         });
     };
     $scope.newItem = function () {
-        var checkItem = {
+        var templateItem = {
             Title: $scope.item.newItemName,
             ChecklistTemplateId: $scope.template.Id
         };
-        checkItemTemplates.save(checkItem, function (savedItem) {
+        checkItemTemplates.save(templateItem, function (savedItem) {
             $scope.item.newItemName = null;
             $scope.templateItems.splice(0, 0, savedItem);
         });
@@ -112,3 +78,23 @@ function EditCheckItemCtrl($scope, $routeParams, $location, checkItemTemplates) 
         });
     };
 }
+
+var SelectTemplateCtrl = function ($scope, $location, checklistTemplates, userService) {
+    var filterExt = new FilterCtrl($scope);
+    $scope.filters.args.organisation = userService.organisation;
+
+    $scope.getData = function () {
+        checklistTemplates.odata(filterExt.getODataFilter($scope.filters),
+            function (pageResult) {
+                filterExt.updateTotalPages(pageResult.Count);
+                $scope.templates = pageResult.Items;
+            }
+        );
+    };
+
+    $scope.selectTemplate = function (templateId) {
+        $location.path('/checklists/new/' + templateId);
+    };
+
+    $scope.getData();
+};
