@@ -11,6 +11,8 @@ using System.Web.Http;
 using ChecklistManager.Model;
 using ChecklistManager.Repository;
 using System.Collections.ObjectModel;
+using System.Web.Http.OData;
+using System.Web.Http.OData.Query;
 
 namespace ChecklistManager.Controllers
 {
@@ -18,17 +20,32 @@ namespace ChecklistManager.Controllers
     {
         private IChecklistRepository repository;
 
+        
         public ChecklistController(IChecklistRepository repository)
         {
             this.repository = repository;
         }
 
-        public IEnumerable<Checklist> GetChecklist(string organisation)
+        //[Queryable]
+        //public IQueryable<Checklist> GetChecklist(string organisation)
+        //{
+        //    return repository.Checklists
+        //        .Where(i => i.ChecklistTemplate.Manager.OrganisationName == organisation)
+        //        .Where(i => !i.IsObsolete)
+        //        .Include(i => i.Items);
+        //}
+
+        public PageResult<Checklist> GetChecklist(string organisation, ODataQueryOptions<Checklist> queryOptions)
         {
-            return repository.Checklists
+            var query = repository.Checklists
                 .Where(i => i.ChecklistTemplate.Manager.OrganisationName == organisation)
                 .Where(i => !i.IsObsolete)
                 .Include(i => i.Items);
+             IQueryable results = queryOptions.ApplyTo(query);
+
+             return new PageResult<Checklist>(results as IEnumerable<Checklist>, 
+                 Request.GetNextPageLink(), 
+                 Request.GetInlineCount());
         }
 
         // GET api/Checklist?templateId

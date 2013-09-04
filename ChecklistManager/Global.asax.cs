@@ -28,12 +28,6 @@ namespace ChecklistManager
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             DependencyInjection.RegisterResolver(GlobalConfiguration.Configuration);
-
-            GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling =
-                Newtonsoft.Json.ReferenceLoopHandling.Serialize;
-            GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling
-     = Newtonsoft.Json.PreserveReferencesHandling.Objects;
-
         }
     }
 }

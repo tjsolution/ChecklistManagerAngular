@@ -8,7 +8,9 @@
         controller: function ($scope, $element, $attrs) {
             $scope.sort = $attrs.sorted;
 
-            $scope.do_sort = function () { $scope.sort_by($scope.sort); };
+            $scope.do_sort = function () {
+                $scope.sort_by($scope.sort);
+            };
 
             $scope.do_show = function (asc) {
                 return (asc !== $scope.sort_desc) && ($scope.sort_order === $scope.sort);

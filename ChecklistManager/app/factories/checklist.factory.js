@@ -7,7 +7,8 @@ function CheckItemTemplateFactory($resource) {
 function ChecklistFactory($resource) {
     return $resource('/api/checklist/:id', { id: '@id' }, {
         update: { method: 'PUT' },
-        create: { method: 'GET', params: { templateId: '@templateId' } }
+        create: { method: 'GET', params: { templateId: '@templateId' } },
+        odata: { method: 'GET' }
     });
 }
 function CheckItemFactory($resource) {
