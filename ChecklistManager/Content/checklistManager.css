@@ -68,7 +68,12 @@ td a i.glyphicon {
 #maxColumn {
     width: 90%;
 }
+
 #optionColumn {
     min-width: 40px;
     max-width: 60px;
+}
+
+.allChecked {
+    background-color: green;
 }

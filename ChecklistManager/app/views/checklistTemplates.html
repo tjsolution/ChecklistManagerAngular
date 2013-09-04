@@ -31,7 +31,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr data-ng-repeat="template in templates" data-ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}" id="item_{{template.Id}}">
+        <tr data-ng-repeat="template in templates" id="item_{{template.Id}}">
             <td><a href="#/checklist-templates/edit/{{template.Id}}">{{template.Title}}</a></td>
             <td>{{template.ManagerUsername}}</td>
             <td>

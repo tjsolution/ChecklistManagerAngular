@@ -18,7 +18,12 @@ namespace ChecklistManager.Model
 
         public void Modified()
         {
-            RecordModified = DateTime.Now;
+            var now = DateTime.UtcNow;
+            if (RecordCreated <= DateTime.MinValue)
+            {
+                RecordCreated = now;
+            }
+            RecordModified = now;
         }
 
         public void Obsolete()

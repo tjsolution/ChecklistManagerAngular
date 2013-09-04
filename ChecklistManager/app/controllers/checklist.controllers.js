@@ -16,14 +16,28 @@ function ViewChecklistsCtrl($scope, $location, checklistResource, userService) {
     checklistResource.query({ organisation: userService.organisation }, function (lists) {
         _.each(lists, function (list) {
             list.completedItems = $scope.calculateCompletedCount(list.Items)
+            list.allItemsChecked = (list.completedItems == list.Items.length);
         });
         $scope.checklists = lists;
     });
     $scope.remove = function (id) {
         checklistResource.remove({ id: id }, function () {
-            angular.element("#item_" + id).remove();
+            angular.element("#list_" + id).remove();
         });
     };
+
+    $scope.sort_by = function (ord) {
+        if ($scope.sort_order === ord) {
+            $scope.sort_desc = !$scope.sort_desc;
+        }
+        else {
+            $scope.sort_desc = false;
+        }
+        $scope.sort_order = ord;
+    };
+
+    $scope.sort_order = 'RecordCreated';
+    $scope.sort_desc = true;
 };
 
 var CompleteChecklistCtrl = function ($scope, $location, checklistTemplates, userService) {
@@ -57,6 +71,7 @@ function ViewChecklistCtrl($scope, $routeParams, $location, checklistResource, c
         $scope.checklistItems = checkItemResource.query({ checklistId: checklist.Id }, function (items) {
             $scope.checklist.Items = items;
             $scope.completedItems = $scope.getCompletedCount();
+            $scope.allItemsChecked = ($scope.completedItems == items.length);
         });   
     });    
 

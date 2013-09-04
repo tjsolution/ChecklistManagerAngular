@@ -1,4 +1,6 @@
-﻿<div class="row">
+﻿<h1>Checklist History</h1>
+
+<div class="row">
     <div class="col-md-3 pull-right">
         <div class="input-group">
             <input type="text" data-ng-model="list.query" class="form-control" placeholder="search..." data-cng-blur="search()" />
@@ -12,20 +14,24 @@
     <thead>
         <tr>
             <th data-sorted="Title">Title</th>
+            <th data-sorted="RecordCreated">Created</th>
             <th data-sorted="RecordModifiedBy">Modified By</th>
             <th class="optionColumn"></th>
         </tr>
     </thead>
     <tbody>
-        <tr data-ng-repeat="checklist in checklists" data-ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}" id="item_{{checklist.Id}}">
+        <tr data-ng-repeat="checklist in checklists" id="list_{{checklist.Id}}">
             <td>
-                <a href="#/checklists/edit/{{checklist.Id}}">{{checklist.Title}}</a>
-                <span class="badge pull-right">{{checklist.completedItems}}</span>
+                <span><a href="#/checklists/edit/{{checklist.Id}}">{{checklist.Title}}</a></span>
             </td>
+            <td><span>{{checklist.RecordCreated | date:'short'}}</span></td>
             <td><span>{{checklist.RecordModifiedBy}}</span></td>
             <td>
-                <a href="#/checklist/edit/{{checklist.Id}}"><i class="icon-edit"></i></a>
-                <a href="#" data-ng-click="remove({{checklist.Id}})"><i class="icon-remove"></i></a>
+                <span class="pull-right">
+                    <a href="#/checklist/edit/{{checklist.Id}}"><i class="icon-edit"></i></a>
+                    <a href="#" data-ng-click="remove({{checklist.Id}})"><i class="icon-remove"></i></a>
+                </span>
+                <span class="badge pull-right" data-ng-class="{allChecked: checklist.allItemsChecked}">{{checklist.completedItems}}</span>
             </td>
         </tr>
     </tbody>
