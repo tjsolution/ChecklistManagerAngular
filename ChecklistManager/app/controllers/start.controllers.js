@@ -1,5 +1,5 @@
 ﻿var StartCtrl = function ($scope, $location) {
-
+    $scope.title = "Ready?";
 };
 
 function FilterCtrl($scope) {

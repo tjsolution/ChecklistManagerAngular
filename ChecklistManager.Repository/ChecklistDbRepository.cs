@@ -15,8 +15,8 @@ namespace ChecklistManager.Repository
     {
         private ChecklistContext db = new ChecklistContext();
 
-        public IDbSet<ChecklistTemplate> ChecklistTemplates { get { return db.ChecklistTemplates; } }
-        public IDbSet<CheckItemTemplate> CheckItemTemplates { get { return db.CheckItemTemplates; } }
+        public IDbSet<ChecklistDefinition> ChecklistDefinitions { get { return db.ChecklistDefinitions; } }
+        public IDbSet<CheckItemDefinition> CheckItemDefinitions { get { return db.CheckItemDefinitions; } }
         public IDbSet<Checklist> Checklists { get { return db.Checklists; } }
         public IDbSet<CheckItem> CheckItems { get { return db.CheckItems; } }
         public IDbSet<User> Users { get { return db.Users; } }
@@ -86,11 +86,11 @@ namespace ChecklistManager.Repository
             }
         }
 
-        public IEnumerable<ChecklistTemplate> GetFilteredChecklistTemplates(string q, string sort, bool desc, int? limit, int offset)
+        public IEnumerable<ChecklistDefinition> GetFilteredChecklistDefinitions(string q, string sort, bool desc, int? limit, int offset)
         {
-            var list = ((IObjectContextAdapter)db).ObjectContext.CreateObjectSet<ChecklistTemplate>();
+            var list = ((IObjectContextAdapter)db).ObjectContext.CreateObjectSet<ChecklistDefinition>();
 
-            IQueryable<ChecklistTemplate> items = string.IsNullOrEmpty(sort) ? list.OrderBy(o => o.Id)
+            IQueryable<ChecklistDefinition> items = string.IsNullOrEmpty(sort) ? list.OrderBy(o => o.Id)
                 : list.OrderBy(string.Format("it.{0} {1}", sort, desc ? "DESC" : "ASC"));
 
             if (!string.IsNullOrEmpty(q) && q != "undefined")

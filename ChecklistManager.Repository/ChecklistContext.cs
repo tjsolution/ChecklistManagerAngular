@@ -28,8 +28,8 @@ namespace ChecklistManager.Repository
             this.Configuration.ProxyCreationEnabled = false;
         }
 
-        public IDbSet<ChecklistTemplate> ChecklistTemplates { get; set; }
-        public IDbSet<CheckItemTemplate> CheckItemTemplates { get; set; }
+        public IDbSet<ChecklistDefinition> ChecklistDefinitions { get; set; }
+        public IDbSet<CheckItemDefinition> CheckItemDefinitions { get; set; }
 
         public IDbSet<Checklist> Checklists { get; set; }
         public IDbSet<CheckItem> CheckItems { get; set; }
@@ -39,8 +39,8 @@ namespace ChecklistManager.Repository
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Configurations.Add(new ChecklistTemplateMapping());
-            modelBuilder.Configurations.Add(new CheckItemTemplateMapping());
+            modelBuilder.Configurations.Add(new ChecklistDefinitionMapping());
+            modelBuilder.Configurations.Add(new CheckItemDefinitionMapping());
 
             modelBuilder.Configurations.Add(new ChecklistMapping());
             modelBuilder.Configurations.Add(new CheckItemMapping());

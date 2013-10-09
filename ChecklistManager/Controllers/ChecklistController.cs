@@ -30,7 +30,7 @@ namespace ChecklistManager.Controllers
         //public IQueryable<Checklist> GetChecklist(string organisation)
         //{
         //    return repository.Checklists
-        //        .Where(i => i.ChecklistTemplate.Manager.OrganisationName == organisation)
+        //        .Where(i => i.ChecklistDefinition.Manager.OrganisationName == organisation)
         //        .Where(i => !i.IsObsolete)
         //        .Include(i => i.Items);
         //}
@@ -38,7 +38,7 @@ namespace ChecklistManager.Controllers
         public PageResult<Checklist> GetChecklist(string organisation, ODataQueryOptions<Checklist> queryOptions)
         {
             var query = repository.Checklists
-                .Where(i => i.ChecklistTemplate.Manager.OrganisationName == organisation)
+                .Where(i => i.ChecklistDefinition.Manager.OrganisationName == organisation)
                 .Where(i => !i.IsObsolete)
                 .Include(i => i.Items);
              IQueryable results = queryOptions.ApplyTo(query);
@@ -48,10 +48,10 @@ namespace ChecklistManager.Controllers
                  Request.GetInlineCount());
         }
 
-        // GET api/Checklist?templateId
-        public Checklist GetNewChecklist(int templateId)
+        // GET api/Checklist?definitionId
+        public Checklist GetNewChecklist(int definitionId)
         {
-            var newChecklist = CreateChecklist(templateId);
+            var newChecklist = CreateChecklist(definitionId);
             if (newChecklist == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
@@ -60,13 +60,13 @@ namespace ChecklistManager.Controllers
             return newChecklist;
         }
 
-        private Checklist CreateChecklist(int templateId)
+        private Checklist CreateChecklist(int definitionId)
         {
-            var template = repository.ChecklistTemplates.Find(templateId);
-            var checklist = template.CreateChecklist();
+            var definition = repository.ChecklistDefinitions.Find(definitionId);
+            var checklist = definition.CreateChecklist();
 
-            var checkItems = repository.CheckItemTemplates
-                 .Where(t => t.ChecklistTemplateId == templateId)
+            var checkItems = repository.CheckItemDefinitions
+                 .Where(t => t.ChecklistDefinitionId == definitionId)
                  .ToList()
                  .Select(t => t.CreateCheckItem())
                  .ToList();

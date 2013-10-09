@@ -12,8 +12,8 @@ namespace ChecklistManager.Repository
 {
     public class ChecklistMemoryRepository : IChecklistRepository
     {
-        private IDbSet<ChecklistTemplate> checklistTemplates = new FakeChecklistTemplateSet();
-        private IDbSet<CheckItemTemplate> checkItemTemplates = new FakeCheckItemTemplateSet();
+        private IDbSet<ChecklistDefinition> checklistDefinitions = new FakeChecklistDefinitionSet();
+        private IDbSet<CheckItemDefinition> checkItemDefinitions = new FakeCheckItemDefinitionSet();
 
         private IDbSet<Checklist> checklists = new FakeChecklistSet();
         private IDbSet<CheckItem> checkItems = new FakeCheckItemSet();
@@ -21,8 +21,8 @@ namespace ChecklistManager.Repository
         private IDbSet<User> users = new FakeUserSet();
         private IDbSet<Organisation> organisations = new FakeOrganisationSet();
 
-        public IDbSet<ChecklistTemplate> ChecklistTemplates { get { return this.checklistTemplates; } }
-        public IDbSet<CheckItemTemplate> CheckItemTemplates { get { return this.checkItemTemplates; } }
+        public IDbSet<ChecklistDefinition> ChecklistDefinitions { get { return this.checklistDefinitions; } }
+        public IDbSet<CheckItemDefinition> CheckItemDefinitions { get { return this.checkItemDefinitions; } }
 
         public IDbSet<Checklist> Checklists { get { return this.checklists; } }
         public IDbSet<CheckItem> CheckItems { get { return this.checkItems; } }
@@ -32,17 +32,17 @@ namespace ChecklistManager.Repository
 
         public ChecklistMemoryRepository()
         {
-            var list1 = new ChecklistTemplate { Id = 1, Title = "First List", ManagerUsername = "Me", Items = GetListItems("FirstList") };
-            var list2 = new ChecklistTemplate { Id = 2, Title = "Second List", ManagerUsername = "Myself", Items = GetListItems("SecondList") };
+            var list1 = new ChecklistDefinition { Id = 1, Title = "First List", ManagerUsername = "Me", Items = GetListItems("FirstList") };
+            var list2 = new ChecklistDefinition { Id = 2, Title = "Second List", ManagerUsername = "Myself", Items = GetListItems("SecondList") };
 
-            this.checklistTemplates.Add(list1);
-            this.checklistTemplates.Add(list2);
+            this.checklistDefinitions.Add(list1);
+            this.checklistDefinitions.Add(list2);
         }
 
-        private List<CheckItemTemplate> GetListItems(string listTitle)
+        private List<CheckItemDefinition> GetListItems(string listTitle)
         {
-            return new[] { new CheckItemTemplate { Id = 1, Title = listTitle + "Item1" }, 
-                new CheckItemTemplate { Id = 2, Title = listTitle + "Item2" } }.ToList();
+            return new[] { new CheckItemDefinition { Id = 1, Title = listTitle + "Item1" }, 
+                new CheckItemDefinition { Id = 2, Title = listTitle + "Item2" } }.ToList();
         }
 
         public void SetModified(object item)
@@ -61,9 +61,9 @@ namespace ChecklistManager.Repository
         {
         }
 
-        public IEnumerable<ChecklistTemplate> GetFilteredChecklistTemplates(string query, string sort, bool desc, int? limit, int offset)
+        public IEnumerable<ChecklistDefinition> GetFilteredChecklistDefinitions(string query, string sort, bool desc, int? limit, int offset)
         {
-            var list = checklistTemplates.AsQueryable<ChecklistTemplate>();
+            var list = checklistDefinitions.AsQueryable<ChecklistDefinition>();
 
             var items = GetSort(sort, desc, list);
 
@@ -85,7 +85,7 @@ namespace ChecklistManager.Repository
             return items;
         }
 
-        private static IQueryable<ChecklistTemplate> GetSort(string sort, bool desc, IQueryable<ChecklistTemplate> list)
+        private static IQueryable<ChecklistDefinition> GetSort(string sort, bool desc, IQueryable<ChecklistDefinition> list)
         {
             if (string.IsNullOrEmpty(sort))
             {

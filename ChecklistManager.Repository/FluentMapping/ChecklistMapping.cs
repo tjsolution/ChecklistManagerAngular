@@ -12,12 +12,12 @@ namespace ChecklistManager.Repository.FluentMapping
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity)
                 .IsRequired();
 
-            Property(m => m.ChecklistTemplateId)
+            Property(m => m.ChecklistDefinitionId)
                 .IsRequired();
 
-            HasRequired(m => m.ChecklistTemplate)
+            HasRequired(m => m.ChecklistDefinition)
                 .WithMany()
-                .HasForeignKey(m => m.ChecklistTemplateId);
+                .HasForeignKey(m => m.ChecklistDefinitionId);
 
             HasMany(m => m.Items)
                 .WithRequired(m => m.Checklist)

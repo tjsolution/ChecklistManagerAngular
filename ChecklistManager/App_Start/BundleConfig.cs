@@ -18,12 +18,33 @@ namespace ChecklistManager
                         "~/Scripts/jquery.unobtrusive*",
                         "~/Scripts/jquery.validate*"));
 
+            //bundles.Add(new ScriptBundle("~/bundles/checklistManager").Include(
+            //            "~/Scripts/underscore.js",
+            //            "~/Scripts/toastr.js",
+            //            "~/Scripts/angular.js",
+            //            "~/Scripts/angular-resource.js",
+            //            "~/Scripts/angular-route.js",
+            //            "~/Scripts/bootstrap.js"));
+
+            //bundles.Add(new Bundle("~/bundles/checklistManager-No-Min").Include(
+            //            "~/app/controllers/checklist-definition.controllers.js",
+            //            "~/app/controllers/checklist.controllers.js",
+            //            "~/app/controllers/user.controllers.js",
+            //            "~/app/controllers/start.controllers.js",
+            //            "~/app/factories/httpInterceptor.factory.js",
+            //            "~/app/factories/checklist.factory.js",
+            //            "~/app/directives/checklist.directives.js",
+            //            "~/app/app.js"));
+
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                "~/Content/toastr.css",
+                "~//Content/checklistManager.css"));
+
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",

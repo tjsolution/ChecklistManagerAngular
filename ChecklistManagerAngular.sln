@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChecklistManager.Repository
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChecklistManager.Model", "ChecklistManager.Model\ChecklistManager.Model.csproj", "{3F46062B-3DDA-4204-856A-38ABEF1CABE8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcApplication2", "MvcApplication2\MvcApplication2.csproj", "{58EC7D8D-3CAB-40EB-9176-F9E9E7BA6049}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{3F46062B-3DDA-4204-856A-38ABEF1CABE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F46062B-3DDA-4204-856A-38ABEF1CABE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F46062B-3DDA-4204-856A-38ABEF1CABE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58EC7D8D-3CAB-40EB-9176-F9E9E7BA6049}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58EC7D8D-3CAB-40EB-9176-F9E9E7BA6049}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58EC7D8D-3CAB-40EB-9176-F9E9E7BA6049}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58EC7D8D-3CAB-40EB-9176-F9E9E7BA6049}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -15,7 +15,7 @@ namespace ChecklistManager.Model
 
         public virtual ICollection<CheckItem> Items { get; set; }
 
-        public int ChecklistTemplateId { get; set; }
-        public virtual ChecklistTemplate ChecklistTemplate { get; set; }
+        public int ChecklistDefinitionId { get; set; }
+        public virtual ChecklistDefinition ChecklistDefinition { get; set; }
     }
 }

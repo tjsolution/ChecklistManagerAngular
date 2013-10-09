@@ -48,8 +48,8 @@
     <Compile Include="FakeChecklistSet.cs" />
     <Compile Include="FakeOrganisationSet.cs" />
     <Compile Include="FakeUserSet.cs" />
-    <Compile Include="FakeCheckItemTemplateSet.cs" />
-    <Compile Include="FakeChecklistTemplateSet.cs" />
+    <Compile Include="FakeCheckItemDefinitionSet.cs" />
+    <Compile Include="FakeChecklistDefinitionSet.cs" />
     <Compile Include="FakeDbSet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

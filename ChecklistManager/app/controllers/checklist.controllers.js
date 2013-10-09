@@ -27,7 +27,7 @@
 function CreateChecklistCtrl($scope, $routeParams, $location, checklistResource) {
     var ext = new ChecklistBase($scope);
 
-    checklistResource.create({ templateId: $routeParams.templateId }, function (checklist) {
+    checklistResource.create({ definitionId: $routeParams.definitionId }, function (checklist) {
         $scope.checklist = checklist;
         $scope.checklistItems = checklist.Items;
         $scope.completedItems = ext.getCompletedCount(checklist.Items);

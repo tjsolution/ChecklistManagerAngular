@@ -1,16 +1,16 @@
-﻿function ChecklistTemplateFactory($resource) {
-    return $resource('/api/checklistTemplate/:id', { id: '@id' }, {
+﻿function ChecklistDefinitionFactory($resource) {
+    return $resource('/api/checklistDefinition/:id', { id: '@id' }, {
         update: { method: 'PUT' },
         odata: { method: 'GET' }
     });
 }
-function CheckItemTemplateFactory($resource) {
-    return $resource('/api/checkItemTemplate/:id', { id: '@id' }, { update: { method: 'PUT' } });
+function CheckItemDefinitionFactory($resource) {
+    return $resource('/api/checkItemDefinition/:id', { id: '@id' }, { update: { method: 'PUT' } });
 }
 function ChecklistFactory($resource) {
     return $resource('/api/checklist/:id', { id: '@id' }, {
         update: { method: 'PUT' },
-        create: { method: 'GET', params: { templateId: '@templateId' } },
+        create: { method: 'GET', params: { definitionId: '@definitionId' } },
         odata: { method: 'GET' }
     });
 }

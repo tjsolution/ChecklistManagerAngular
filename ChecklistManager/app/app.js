@@ -1,6 +1,6 @@
 ﻿/*global */
 
-var checklistApp = angular.module("checklistApp", ["ngResource" /*, 'ui.bootstrap'*/]);
+var checklistApp = angular.module('checklistApp', ['ngResource', 'ngRoute' /*, 'ui.bootstrap'*/]);
 
 checklistApp.factory('myHttpInterceptor', MyHttpInterceptor);
 
@@ -8,22 +8,22 @@ checklistApp.config(function ($routeProvider, $httpProvider) {
     $httpProvider.interceptors.push('myHttpInterceptor');
 
     $routeProvider
-        .when('/', { controller: StartCtrl, templateUrl: 'views/start.html' })
-        .when('/users', { controller: UserListCtrl, templateUrl: 'views/users.html' })
-        .when('/users/new', { controller: CreateUserCtrl, templateUrl: 'views/userDetails.html' })
-        .when('/users/edit/:username', { controller: EditUserCtrl, templateUrl: 'views/userDetails.html' })
-        .when('/checklist-templates', { controller: ChecklistTemplatesCtrl, templateUrl: 'views/checklistTemplates.html' })
-        .when('/checklist-templates/edit/:id', { controller: EditTemplateCtrl, templateUrl: 'views/checklistTemplateDetails.html' })
-        .when('/checklist-templates/item/edit/:itemId', { controller: EditCheckItemCtrl, templateUrl: 'views/checkltemTemplateDetails.html' })
-        .when('/checklists', { controller: ViewChecklistsCtrl, templateUrl: 'views/checklists.html' })
-        .when('/checklist-templates/select', { controller: SelectTemplateCtrl, templateUrl: 'views/selectTemplate.html' })
-        .when('/checklists/new/:templateId', { controller: CreateChecklistCtrl, templateUrl: 'views/checklistDetails.html' })
-        .when('/checklists/edit/:id', { controller: ViewChecklistCtrl, templateUrl: 'views/checklistDetails.html' })
+        .when('/', { controller: StartCtrl, templateUrl: 'app/views/start.html' })
+        .when('/users', { controller: UserListCtrl, templateUrl: 'app/views/users.html' })
+        .when('/users/new', { controller: CreateUserCtrl, templateUrl: 'app/views/userDetails.html' })
+        .when('/users/edit/:username', { controller: EditUserCtrl, templateUrl: 'app/views/userDetails.html' })
+        .when('/checklist-definitions', { controller: ChecklistDefinitionsCtrl, templateUrl: 'app/views/checklistDefinitions.html' })
+        .when('/checklist-definitions/edit/:id', { controller: EditDefinitionCtrl, templateUrl: 'app/views/checklistDefinitionDetails.html' })
+        .when('/checklist-definitions/item/edit/:itemId', { controller: EditCheckItemCtrl, templateUrl: 'app/views/checkItemDefinitionDetails.html' })
+        .when('/checklists', { controller: ViewChecklistsCtrl, templateUrl: 'app/views/checklists.html' })
+        .when('/checklist-definitions/select', { controller: SelectDefinitionCtrl, templateUrl: 'app/views/selectDefinition.html' })
+        .when('/checklists/new/:definitionId', { controller: CreateChecklistCtrl, templateUrl: 'app/views/checklistDetails.html' })
+        .when('/checklists/edit/:id', { controller: ViewChecklistCtrl, templateUrl: 'app/views/checklistDetails.html' })
         .otherwise({ redirectTo: '/' });
 });
 
-checklistApp.factory('checklistTemplates', ChecklistTemplateFactory);
-checklistApp.factory('checkItemTemplates', CheckItemTemplateFactory);
+checklistApp.factory('checklistDefinitions', ChecklistDefinitionFactory);
+checklistApp.factory('checkItemDefinitions', CheckItemDefinitionFactory);
 checklistApp.factory('checklistResource', ChecklistFactory);
 checklistApp.factory('checkItemResource', CheckItemFactory);
 checklistApp.factory('userResource', UserFactory);

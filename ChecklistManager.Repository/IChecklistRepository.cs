@@ -10,8 +10,8 @@ namespace ChecklistManager.Repository
 {
     public interface IChecklistRepository : IDisposable
     {
-        IDbSet<ChecklistTemplate> ChecklistTemplates { get; }
-        IDbSet<CheckItemTemplate> CheckItemTemplates { get; }
+        IDbSet<ChecklistDefinition> ChecklistDefinitions { get; }
+        IDbSet<CheckItemDefinition> CheckItemDefinitions { get; }
 
         IDbSet<Checklist> Checklists { get; }
         IDbSet<CheckItem> CheckItems { get; }
@@ -23,6 +23,6 @@ namespace ChecklistManager.Repository
         void SetModifiedList(object[] items);
         void SaveChanges();
 
-        IEnumerable<ChecklistTemplate> GetFilteredChecklistTemplates(string q, string sort, bool desc, int? limit, int offset);
+        IEnumerable<ChecklistDefinition> GetFilteredChecklistDefinitions(string q, string sort, bool desc, int? limit, int offset);
     }
 }
