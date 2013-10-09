@@ -6,10 +6,10 @@
 </div>
 
 <ul class="list-unstyled">
-    <li><a href="#/checklist-definitions/select">Complete checklist</a></li>
-    <li><a href="#/checklists/assign">Assign a checklist to a user</a></li>
-    <li><a href="#/checklists/history">View checklist history</a></li>
-    <li><a href="#/checklists-definitions/new">Create a checklist</a></li>
-    <li><a href="#/users/">Manage Users</a></li>
+    <li><a href="#/checklist-definitions/select">Create checklist</a></li>
+    <li data-ng-show="isAdmin"><a href="#/checklists/assign">Assign a checklist</a></li>
+    <li><a href="#/checklists/history">View checklists</a></li>
+    <li data-ng-show="isAdmin"><a href="#/checklists-definitions/new">Create definition</a></li>
+    <li data-ng-show="isAdmin"><a href="#/users/">Manage Users</a></li>
 </ul>
 

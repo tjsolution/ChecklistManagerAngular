@@ -18,23 +18,23 @@ namespace ChecklistManager
                         "~/Scripts/jquery.unobtrusive*",
                         "~/Scripts/jquery.validate*"));
 
-            //bundles.Add(new ScriptBundle("~/bundles/checklistManager").Include(
-            //            "~/Scripts/underscore.js",
-            //            "~/Scripts/toastr.js",
-            //            "~/Scripts/angular.js",
-            //            "~/Scripts/angular-resource.js",
-            //            "~/Scripts/angular-route.js",
-            //            "~/Scripts/bootstrap.js"));
+            bundles.Add(new ScriptBundle("~/bundles/checklistManager").Include(
+                        "~/Scripts/underscore.js",
+                        "~/Scripts/toastr.js",
+                        "~/Scripts/angular.js",
+                        "~/Scripts/angular-resource.js",
+                        "~/Scripts/angular-route.js",
+                        "~/Scripts/bootstrap.js"));
 
-            //bundles.Add(new Bundle("~/bundles/checklistManager-No-Min").Include(
-            //            "~/app/controllers/checklist-definition.controllers.js",
-            //            "~/app/controllers/checklist.controllers.js",
-            //            "~/app/controllers/user.controllers.js",
-            //            "~/app/controllers/start.controllers.js",
-            //            "~/app/factories/httpInterceptor.factory.js",
-            //            "~/app/factories/checklist.factory.js",
-            //            "~/app/directives/checklist.directives.js",
-            //            "~/app/app.js"));
+            bundles.Add(new Bundle("~/bundles/checklistManager-no-min").Include(
+                        "~/app/controllers/checklist-definition.controllers.js",
+                        "~/app/controllers/checklist.controllers.js",
+                        "~/app/controllers/user.controllers.js",
+                        "~/app/controllers/common.controllers.js",
+                        "~/app/factories/httpInterceptor.factory.js",
+                        "~/app/factories/checklist.factory.js",
+                        "~/app/directives/checklist.directives.js",
+                        "~/app/app.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.

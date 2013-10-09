@@ -1,5 +1,5 @@
-﻿var StartCtrl = function ($scope, $location) {
-    $scope.title = "Ready?";
+﻿var StartCtrl = function ($scope, $location, userService) {
+    $scope.isAdmin = userService.isAdmin;
 };
 
 function FilterCtrl($scope) {
@@ -82,4 +82,8 @@ function ChecklistBase($scope) {
     return {
         calculateCompletedCount: calculateCompletedCount
     };
+}
+
+function LoginCtrl($scope, $location, userService) {
+
 }

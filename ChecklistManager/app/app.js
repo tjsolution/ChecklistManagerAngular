@@ -9,12 +9,13 @@ checklistApp.config(function ($routeProvider, $httpProvider) {
 
     $routeProvider
         .when('/', { controller: StartCtrl, templateUrl: 'app/views/start.html' })
+        .when('/login', { controller: LoginCtrl, templateUrl: 'app/views/login.html' })
         .when('/users', { controller: UserListCtrl, templateUrl: 'app/views/users.html' })
         .when('/users/new', { controller: CreateUserCtrl, templateUrl: 'app/views/userDetails.html' })
         .when('/users/edit/:username', { controller: EditUserCtrl, templateUrl: 'app/views/userDetails.html' })
         .when('/checklist-definitions', { controller: ChecklistDefinitionsCtrl, templateUrl: 'app/views/checklistDefinitions.html' })
         .when('/checklist-definitions/edit/:id', { controller: EditDefinitionCtrl, templateUrl: 'app/views/checklistDefinitionDetails.html' })
-        .when('/checklist-definitions/item/edit/:itemId', { controller: EditCheckItemCtrl, templateUrl: 'app/views/checkItemDefinitionDetails.html' })
+        .when('/checklist-definitions/item/edit/:itemId', { controller: EditCheckItemCtrl, templateUrl: 'app/views/itemDefinitionDetails.html' })
         .when('/checklists', { controller: ViewChecklistsCtrl, templateUrl: 'app/views/checklists.html' })
         .when('/checklist-definitions/select', { controller: SelectDefinitionCtrl, templateUrl: 'app/views/selectDefinition.html' })
         .when('/checklists/new/:definitionId', { controller: CreateChecklistCtrl, templateUrl: 'app/views/checklistDetails.html' })

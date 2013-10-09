@@ -237,12 +237,13 @@
   <ItemGroup>
     <Content Include="app\controllers\checklist.controllers.js" />
     <Content Include="app\controllers\checklist-definition.controllers.js" />
-    <Content Include="app\controllers\start.controllers.js" />
+    <Content Include="app\controllers\common.controllers.js" />
     <Content Include="app\controllers\user.controllers.js" />
     <Content Include="app\directives\checklist.directives.js" />
     <Content Include="app\factories\checklist.factory.js" />
     <Content Include="app\factories\httpInterceptor.factory.js" />
-    <Content Include="app\views\checkltemDefinitionDetails.html" />
+    <Content Include="app\views\login.html" />
+    <Content Include="app\views\itemDefinitionDetails.html" />
     <Content Include="app\views\checklistDetails.html" />
     <Content Include="app\views\checklists.html" />
     <Content Include="app\views\selectDefinition.html" />
@@ -568,7 +569,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="index.html" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\ui-bootstrap-0.6.0.js" />

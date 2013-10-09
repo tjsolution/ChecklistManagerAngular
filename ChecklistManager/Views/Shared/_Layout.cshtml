@@ -1,15 +1,18 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html data-ng-app="checklistApp" lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+    <title>Checklist Manager</title>
+    <meta name="viewport" content="width=1024px, initial-scale=1.0">
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-    <meta name="viewport" content="width=device-width" />
+
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.no-icons.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @Styles.Render("~/Content/themes/base/css")
 </head>
-<body>
+<body data-ng-cloak="">
     <div id="userSettings">
         @Html.Partial("_UserSettings")
     </div>
@@ -18,20 +21,15 @@
         @RenderBody()
     </div>
 
-    <footer>
-        <nav>
-            <ul id="menu">
-                <li>@Html.ActionLink("Todo List", "Index", "Home", new { area = "" }, null)</li>
-                <li>@Html.ActionLink("API", "Index", "Help", new { area = "HelpPage" }, null)</li>
-            </ul>
-        </nav> 
-        <p>Learn more about <a href="http://go.microsoft.com/fwlink/?LinkId=273732">Single Page Applications</a></p>
-        <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
+    <footer class="navbar navbar-fixed-bottom"> 
+        <div class="container">
+            <p class="navbar-text pull-left">&copy; @DateTime.Now.Year - Checklist Manager</p>
+        </div>
     </footer>
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryui")
-    @Scripts.Render("~/bundles/ajaxlogin")
+    @Scripts.Render("~/bundles/checklistManager")
+    @Scripts.Render("~/bundles/checklistManager-no-min")
     @RenderSection("scripts", required: false)
 </body>
 </html>

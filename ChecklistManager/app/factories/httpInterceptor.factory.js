@@ -9,6 +9,22 @@
 };
 
 function MyHttpInterceptor($q) {
+
+    function getMessageFromError(error) {
+        if (error.data.ExceptionMessage) {
+            return {
+                isHTML: false,
+                status: error.status,
+                message: error.data.ExceptionMessage
+            };
+        }
+
+        return {
+            isHtml: true,
+            status: error.status,
+            message: error.data
+        };
+    }
     return {
         // optional method
         'request': function (config) {
@@ -18,11 +34,12 @@ function MyHttpInterceptor($q) {
 
         // optional method
         'requestError': function (rejection) {
-            // do something on error
-            toastr.error(rejection.data.ExceptionMessage, 'Status=' + rejection.status);
             //if (canRecover(rejection)) {
             //    return responseOrNewPromise
             //}
+            var error  = getMessageFromError(rejection);
+            toastr.error(error.message, 'Status=' + error.status);
+
             return $q.reject(rejection);
         },
 
@@ -34,11 +51,11 @@ function MyHttpInterceptor($q) {
 
         // optional method
         'responseError': function (rejection) {
-            // do something on error
             //if (canRecover(rejection)) {
             //    return responseOrNewPromise
             //}
-            toastr.error(rejection.data.ExceptionMessage, 'Status=' + rejection.status);
+            var error = getMessageFromError(rejection);
+            toastr.error(error.message, 'Status=' + error.status);
             return $q.reject(rejection);
         }
     };
